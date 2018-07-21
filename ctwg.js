@@ -1,7 +1,7 @@
 //Initializations_______________________________________
 var textarea=document.getElementById('textarea');
 textarea.innerHTML="Ola";
-//document.addEventListener("keypress",Keypress);
+document.addEventListener("keypress",Keypress);
 var input=document.getElementById('input');
 var select=document.getElementById('select');
 //input.addEventListener("change",Select);
@@ -15,6 +15,9 @@ var states={};
 function Keypress(event){
     console.log(event.key);
     keyInput=event.key;
+    if(event.key.localeCompare("Enter")==0){
+        Select();
+    }
 }
 function Select(){
     op_selected=input.value;
@@ -100,7 +103,7 @@ state_initial= new State(new ActionMenu(function(question,options){return Menu(q
             break;
         case 2: 
             op_selected=-1;
-            return 'init dont know';            
+            return 'dk answer';            
             break;
         default:
             op_selected=-1;
@@ -117,15 +120,36 @@ state_init_yes_anwser= new State(new ActionMenu(function(question,options){retur
             break;
         case 1:
             op_selected=-1;
-            return 'scientific';
+            return 'science answer';
             break;
         case 2:
             op_selected=-1;
-            return 'yes dk';
+            return 'dk answer';
             break;
         default: 
             op_selected=-1;
             return "init yes answer";
+    }
+});
+state_init_no_anwser= new State(new ActionMenu(function(question,options){return Menu(question,options);},
+"Menu 1No\n Why is A not real?",['because i believe','because is scientificly proven','dont know']
+),function(value){
+    switch(value){
+        case 0: 
+            op_selected=-1;
+            return 'believe answer';
+            break;
+        case 1:
+            op_selected=-1;
+            return 'science answer';
+            break;
+        case 2:
+            op_selected=-1;
+            return 'dk answer';
+            break;
+        default: 
+            op_selected=-1;
+            return "init no answer";
     }
 });
 state_believe= new State(new ActionMenu(function(question,options){return Menu(question,options);},
@@ -138,6 +162,30 @@ state_believe= new State(new ActionMenu(function(question,options){return Menu(q
     }
     else{
         return "believe answer";
+    }
+});
+state_science= new State(new ActionMenu(function(question,options){return Menu(question,options);},
+"Ok you are a science guy",['Press this option to continue...']
+),function(value){
+    if(value>=0){
+        
+        op_selected=-1;
+        return "Final";
+    }
+    else{
+        return "science answer";
+    }
+});
+state_dk= new State(new ActionMenu(function(question,options){return Menu(question,options);},
+"Ok...",['Press this option to continue...']
+),function(value){
+    if(value>=0){
+        
+        op_selected=-1;
+        return "Final";
+    }
+    else{
+        return "dk answer";
     }
 });
 state_final= new State(new ActionMenu(function(question,options){return Menu(question,options);},
@@ -154,8 +202,11 @@ state_final= new State(new ActionMenu(function(question,options){return Menu(que
 //insert created states in dictionary
 states['initial']=state_initial;
 states['init yes answer']=state_init_yes_anwser;
+states['init no answer']=state_init_no_anwser;
 states['believe answer']=state_believe;
 states['Final']=state_final;
+states['science answer']=state_science;
+states['dk answer']=state_dk;
 //start state machine
 var actual_state=states['initial'];
 var value=actual_state.run();
