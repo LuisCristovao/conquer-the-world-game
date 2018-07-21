@@ -189,14 +189,15 @@ state_dk= new State(new ActionMenu(function(question,options){return Menu(questi
     }
 });
 state_final= new State(new ActionMenu(function(question,options){return Menu(question,options);},
-"The End",['Press this option to continue...']),function(value){
-    if(value>=0){
-        
+"The End",['Press this option to continue...']),function(value_){
+    if(value_>=0){
         op_selected=-1;
         return "initial";
     }
     else{
-        return "Final";
+        
+        setTimeout(function(){value='initial';},2000)
+        return 'Final';
     }
 });
 //insert created states in dictionary
