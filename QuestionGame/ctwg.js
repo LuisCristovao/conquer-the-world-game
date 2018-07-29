@@ -66,6 +66,12 @@ function readTextFile(file)
     rawFile.send(null);
     return allText;
 }
+/*--------------------------------------------------
+function 
+-------------------------------------------------*/
+function nextstate(){
+    
+}
 /*------------------------------------------------
 func: is the function you want class action to do
 params: is an array with parameters for the function
