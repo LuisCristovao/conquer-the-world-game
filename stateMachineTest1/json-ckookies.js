@@ -15,7 +15,7 @@ var characters=[
 		]
 	},
 	{
-		'name':'AAA',
+		'name':'BBB',
 		'attacks':[
 			{
 				'type':['thunder'],

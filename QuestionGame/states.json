@@ -1,0 +1,22 @@
+[
+    {
+        "state":"question",
+        "question": "Menu Initial\nQuestion is A real?",
+        "choices": ["yes","no","dont know"],
+        "next":["right","wrong","wrong"]
+    },
+    {
+        "state":"right",
+        "question": "Selected the right choice!",
+        "choices": ["press to continue..."],
+        "next":["question"]
+    },
+    {
+        "state":"wrong",
+        "question": "Selected the Wrong choice!",
+        "choices": ["press to continue..."],
+        "next":["question"]
+        
+    }
+    
+]

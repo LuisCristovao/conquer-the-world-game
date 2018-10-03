@@ -2,10 +2,11 @@
 var textarea=document.getElementById('textarea');
 textarea.innerHTML="Ola";
 document.addEventListener("keypress",Keypress);
+
 var input=document.getElementById('input');
 var select=document.getElementById('select');
-//input.addEventListener("change",Select);
 select.addEventListener("click",Select);
+
 var keyInput;
 var states={};
 var op_selected='';
@@ -66,12 +67,7 @@ function readTextFile(file)
     rawFile.send(null);
     return allText;
 }
-/*--------------------------------------------------
-function 
--------------------------------------------------*/
-function nextstate(){
-    
-}
+
 /*------------------------------------------------
 func: is the function you want class action to do
 params: is an array with parameters for the function
@@ -92,20 +88,57 @@ action: is a function that does an action and return a value, could be from an i
 next_state: is a function that evaluates the value return from action and returns the next state value.
 ------------------------------------------------*/
 class State{
-    constructor(action,next_state){
+    constructor(action,next_state,question_json){
         this.action=action;
         this.next=next_state;
+        this.question_json=question_json;
     }
     run(){
-        return this.next(this.action.run());
+        return this.next(this.action.run(),this.question_json);
     }
+}
+
+function ChooseOption(value_,question_json){
+    if(value_>0 && value_<question_json.next.length){
+        op_selected=-1;
+        return question_json.next[value_];
+    }
+    //if not avaiable option
+    else{
+        op_selected=-1;
+        return question_json.state;
+    }
+    
+}
+
+
+//Main____________________________________
+function CreateStates(){
+    questions=JSON.parse(readTextFile("states.json"));
+    questions.forEach(function(question_json){
+        
+        states[question_json.state]=new State(new ActionMenu(function(question,options){return Menu(question,options);},question_json.question,question_json.choices),
+            function(value_,question_json){
+                if(value_>=0 && value_<question_json.next.length){
+                    op_selected=-1;
+                    return question_json.next[value_];
+                }
+                //if not avaiable option
+                else{
+                    op_selected=-1;
+                    return question_json.state;
+                }
+            },
+            question_json);                                 
+             
+    });
 }
 
 
 
-//Main____________________________________
-//Create States
-state_question= new State(new ActionMenu(function(question,options){return Menu(question,options);},
+
+//Create States------------------
+/*state_question= new State(new ActionMenu(function(question,options){return Menu(question,options);},
 "Menu Initial\n Question is A real?",['yes','no','dont know']
 ),function(value_){
     switch(value_){
@@ -153,7 +186,8 @@ state_wrong= new State(new ActionMenu(function(question,options){return Menu(que
 });
 states['question']=state_question;
 states['right']=state_right;
-states['wrong']=state_wrong;
+states['wrong']=state_wrong;*/
+CreateStates();
 var actual_state=states['question'];
 var state_value=actual_state.run();
 
@@ -170,3 +204,9 @@ function Game() {
     //console.log(op_selected);
     window.requestAnimationFrame(Game);
 }
+
+
+//hi=JSON.parse(readTextFile("states.json"));
+//console.log(hi[1].state);
+
+
