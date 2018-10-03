@@ -1,0 +1,50 @@
+
+[
+    {
+        "state":"1",
+        "question": "What is 2*7?",
+        "choices": ["65","32","44","14"],
+        "next":["wrong1","wrong1","wrong1","right1"]
+    },
+    {
+        "state":"right1",
+        "question": "Selected the right choice!",
+        "choices": ["press to continue..."],
+        "next":["2"]
+    },
+    {
+        "state":"wrong1",
+        "question": "Selected the Wrong choice!",
+        "choices": ["press to continue..."],
+        "next":["2"]
+        
+    },
+    {
+        "state":"2",
+        "question": "Capital of Portugal",
+        "choices": ["Madrid","Paris","London","Lisbon"],
+        "next":["wrong2","wrong2","wrong2","right2"]
+        
+    },
+    {
+        "state":"right2",
+        "question": "Selected the right choice!",
+        "choices": ["press to continue..."],
+        "next":["finish"]
+    },
+    {
+        "state":"wrong2",
+        "question": "Selected the Wrong choice!",
+        "choices": ["press to continue..."],
+        "next":["finish"]
+        
+    },
+    {
+        "state":"finish",
+        "question": "Reach the End!",
+        "choices": ["Press to begin again"],
+        "next":["1"]
+        
+    }
+    
+]

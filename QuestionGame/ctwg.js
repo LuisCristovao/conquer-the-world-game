@@ -114,7 +114,7 @@ function ChooseOption(value_,question_json){
 
 //Main____________________________________
 function CreateStates(){
-    questions=JSON.parse(readTextFile("states.json"));
+    questions=JSON.parse(readTextFile("states2.json"));
     questions.forEach(function(question_json){
         
         states[question_json.state]=new State(new ActionMenu(function(question,options){return Menu(question,options);},question_json.question,question_json.choices),
@@ -188,7 +188,7 @@ states['question']=state_question;
 states['right']=state_right;
 states['wrong']=state_wrong;*/
 CreateStates();
-var actual_state=states['question'];
+var actual_state=states['1'];
 var state_value=actual_state.run();
 
 window.requestAnimationFrame(Game);
