@@ -1,3 +1,4 @@
+
 [
     {
         "state":"question",
@@ -20,9 +21,9 @@
     },
     {
         "state":"don't know",
-        "question": "Really don't know?",
-        "choices": ["press to return to previous question..."],
-        "next":["question"]
+        "question": "Really don't know? Choose Again:",
+        "choices": ["no","yes"],
+        "next":["wrong","right"]
         
     }
     
