@@ -3,7 +3,7 @@
         "state":"question",
         "question": "Menu Initial\nQuestion is A real?",
         "choices": ["yes","no","dont know"],
-        "next":["right","wrong","wrong"]
+        "next":["right","wrong","don't know"]
     },
     {
         "state":"right",
@@ -15,6 +15,13 @@
         "state":"wrong",
         "question": "Selected the Wrong choice!",
         "choices": ["press to continue..."],
+        "next":["question"]
+        
+    },
+    {
+        "state":"don't know",
+        "question": "Really don't know?",
+        "choices": ["press to return to previous question..."],
         "next":["question"]
         
     }
