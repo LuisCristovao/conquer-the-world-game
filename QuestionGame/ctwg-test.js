@@ -1,4 +1,15 @@
-
+/*
+//Exemple
+function Menu(question,options){
+    this.question=question
+    this.options=options
+    
+    this.Print= function(){
+        alert(this.question+" "+this.options[0]);
+        
+    }
+}
+*/
 function Keypress(event){
         //console.log(event.key);
         state_machine.keyInput=event.key;
@@ -10,36 +21,33 @@ function Keypress(event){
 function Select(){
         state_machine.op_selected=state_machine.input.value;
         state_machine.input.value='';
-}
+    }
 
 //Classes
 //---------------------------
-class ActionMenu{
+class Action{
     
-    constructor(func,question,options){
-        this.func=func;
-        this.question=question;
-        this.options=options
+    constructor(func_){
+        this.func=func_;
+        
     }
     run(){
-        return parseInt(this.func(this.question,this.options));
+        return this.func();
     }
 }
 class State{
         constructor(action,next_state,question_json){
             this.action=action;
             this.next=next_state;
-            this.question_json=question_json;
             
-            this.next
         }
         run(){
-            return this.next(this.action.run(),this.question_json);
+            return this.next(this.action.run());
         }
 }
 
 //State Machine class
-class StateMachine{
+/*class StateMachine{
     
     
     constructor(textarea_id,input_id, initial_state,jsonfile){
@@ -87,7 +95,7 @@ class StateMachine{
         rawFile.send(null);
         return allText;
     }
-    Menu(question,options){
+    Menu(question,options)=function{
         this.op_selected=parseInt(this.op_selected);
         this.textarea.innerHTML=question+'\n';
         for(var i=0;i<options.length;i++){
@@ -124,6 +132,7 @@ class StateMachine{
         
         for(var i=0;i < questions.length;i++){
             var question_json=questions[i];
+            var menu=new this.Menu(question_json.question,question_json.choices);
             this.states[question_json.state]=new State(new ActionMenu(this.Menu,question_json.question,question_json.choices),this.ChooseOption,question_json);
             
         }
@@ -132,9 +141,11 @@ class StateMachine{
     DetermineState(){
         if(this.state_value!=null){
             console.log(this.state_value);
+            
             this.textarea.innerHTML="";
             this.actual_state=this.states[this.state_value];
             this.state_value=this.actual_state.run();
+            
         }
         //console.log(op_selected);
         window.requestAnimationFrame(this.DetermineState);
@@ -156,5 +167,18 @@ document.addEventListener("keypress",this.Keypress);
 
 state_machine=new StateMachine('textarea','input','1','states2.json');
 //state_machine.Print();
-state_machine.RunMachine();
+state_machine.RunMachine();*/
 
+function Ola(greeeting,name){
+    this.name=name;
+    
+    this.Run.bind(this);
+    this.Run = function(){
+        alert(this.greeting+" "+this.name);
+    }
+    
+}
+action=new Ola('Hi','Tiago');
+action=new Action(action.Run);
+state=new State(action,function(){return "End!";});
+console.log(state.run());
