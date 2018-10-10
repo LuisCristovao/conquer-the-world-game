@@ -22,8 +22,8 @@
     {
         "state":"2",
         "question": "Capital of Portugal",
-        "choices": ["Madrid","Paris","London","Lisbon"],
-        "next":["wrong2","wrong2","wrong2","right2"]
+        "choices": ["Madrid","Paris","Lisbon","London"],
+        "next":["wrong2","wrong2","right2","wrong2"]
         
     },
     {

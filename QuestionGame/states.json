@@ -2,7 +2,7 @@
 [
     {
         "state":"question",
-        "question": "Menu Initial\nQuestion is A real?",
+        "question": "Initial Menu\nQuestion is A real?",
         "choices": ["yes","no","dont know"],
         "next":["right","wrong","don't know"]
     },
