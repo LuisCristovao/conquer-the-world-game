@@ -4,8 +4,6 @@ function getElement(id){
 }
 //State class
 class State{
-    
-    
     constructor(state_id,action,next_state){
         this.state_id=state_id
         this.action=action
@@ -39,8 +37,8 @@ class TextArea{
 }
 class UserInput{
     constructor(input_id="input",button_id="select"){
-        this.input_el=getElement("input")
-        this.button_el=getElement("select")
+        this.input_el=getElement(input_id)
+        this.button_el=getElement(button_id)
         this.user_input=null
         
         //events
@@ -84,34 +82,7 @@ class StateMachine{
 //Main
 let textarea=new TextArea()
 let user_input=new UserInput()
-let state_machine={
-    "ola":new State("ola",()=>{
-            textarea.write("Ola Mundo\n1. d - adeus\n2. w - wierd")
-        },()=>{
-            if(user_input.input()=="d"){
-                return "adeus"
-            }
-            if(user_input.input()=="w"){
-                return "wierd"
-            }else{
-                return "ola"
-            }
-        }),
-    "adeus":new State("adeus",()=>{textarea.write("Adeus Mundo")},()=>{ 
-        if(user_input.input()=="e"){
-            return "ola"
-        }else{
-            return "adeus"
-        }
-    }),
-    "wierd":new State("wierd",()=>{textarea.write("/&%$###$%&")},()=>{ 
-        if(user_input.input()=="o"){
-            return "ola"
-        }else{
-            return "wierd"
-        }
-    })
-}
+
 textarea.write("Ola Batatas\nOla Atum!")
 let game=new StateMachine(state_machine,"ola")
 game.start()
