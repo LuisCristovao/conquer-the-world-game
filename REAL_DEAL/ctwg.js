@@ -6,11 +6,11 @@ function getElement(id){
 class State{
     
     
-    constructor(state_id,action,next_state,condition){
+    constructor(state_id,action,next_state){
         this.state_id=state_id
         this.action=action
         this.next_state=next_state;
-        this.condition=condition
+        
     }
 
     id=()=>{
@@ -20,11 +20,7 @@ class State{
         this.action()
     }
     next=()=>{
-        if(this.condition()){
-            return this.next_state
-        }else{
-            return this.state_id
-        }
+        return this.next_state()
     }
 }
 class TextArea{
@@ -90,19 +86,29 @@ let textarea=new TextArea()
 let user_input=new UserInput()
 let state_machine={
     "ola":new State("ola",()=>{
-            textarea.write("Ola Mundo")
-        },"adeus",()=>{
+            textarea.write("Ola Mundo\n1. d - adeus\n2. w - wierd")
+        },()=>{
             if(user_input.input()=="d"){
-                return true
+                return "adeus"
+            }
+            if(user_input.input()=="w"){
+                return "wierd"
             }else{
-                return false
+                return "ola"
             }
         }),
-    "adeus":new State("adeus",()=>{textarea.write("Adeus Mundo")},"ola",()=>{ 
+    "adeus":new State("adeus",()=>{textarea.write("Adeus Mundo")},()=>{ 
         if(user_input.input()=="e"){
-            return true
+            return "ola"
         }else{
-            return false
+            return "adeus"
+        }
+    }),
+    "wierd":new State("wierd",()=>{textarea.write("/&%$###$%&")},()=>{ 
+        if(user_input.input()=="o"){
+            return "ola"
+        }else{
+            return "wierd"
         }
     })
 }
